@@ -13,7 +13,7 @@ BITMAP *fondo3;
 BITMAP *cursor;
 
 //pos in Graph
-int px=30,py=0;
+int px=30,py=30;
 
 vector<string>maze;
 vector<vector<bool> >visited;
@@ -63,20 +63,13 @@ void drw_maze(){
 
 
 void loadMaze(){
-//    ifstream data ("Levels/L2.in", ifstream::in); //From text file
-    ifstream data ("Levels/t.out", ifstream::in); //From text file
-    string rows;
-    while(data>>rows){
-        maze.push_back(rows);
-        w++;
-    }//Read data
-    data.close();
+
 }
 
 
 void normalGame(){
     loadMaze();
-    int ix=1,iy=0;//Begining of maze
+    int ix=1,iy=1;//Begining of maze
     init_Score(ix,iy);//Beginning score
     //Load bitmaps
     buffer=create_bitmap(860,660);
@@ -148,10 +141,10 @@ void normalGame(){
         if(mouse_x > 684 && mouse_x < 835 && mouse_y > 542 && mouse_y < 587){//menu
             blit(fondo2, buffer, 0, 0, 0, 0, 860, 660);
             if ( mouse_b & 1 ){
-                px=30,py=0;
-                ix=1,iy=0;
+                px=30,py=30;
+                ix=1,iy=1;
                 score=1000;
-                destroy_bitmap(buffer);
+                void destroy_bitmap(BITMAP *buffer);
                 break;
             }
         }else if(mouse_x > 659 && mouse_x < 857 && mouse_y > 264 && mouse_y < 330){//hint

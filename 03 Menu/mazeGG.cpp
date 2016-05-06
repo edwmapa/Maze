@@ -25,7 +25,7 @@ int main(){
             blit(arcade, buffer, 0, 0, 0, 0, 860, 660);
         }else if(mouse_x > 330 && mouse_x < 595 && mouse_y > 331 && mouse_y < 395){//normal
             if ( mouse_b & 1 ){
-                clear_bitmap(screen); //cls
+                void destroy_bitmap(BITMAP *buffer);
                 normalGame();
             }
             blit(normal, buffer, 0, 0, 0, 0, 860, 660);
