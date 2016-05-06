@@ -5,7 +5,6 @@ using namespace std;
 const int MAZE_SIZE = 22;
 const int dx[]= {0,0,1,-1};
 const int dy[]= {1,-1,0,0};//Right,Left,Up,Down
-
 vector<string>maze(MAZE_SIZE,string(MAZE_SIZE,'#'));
 vector<vector<bool> >visited(MAZE_SIZE,vector<bool>(MAZE_SIZE,0));
 
@@ -19,14 +18,13 @@ bool check_nearest(int x,int y){
 }
 
 void mazeGen(int x,int y){
-    srand (time(NULL));
     if(visited[x][y]==1)return;
     visited[x][y]=1;
     maze[x][y]='.';
 //    for(int i=0;i<MAZE_SIZE;i++){
 //        cout<<maze[i]<<endl;
 //    }
-    Sleep(100);
+    //Sleep(100);
     vector<int>m;
     for(int i=0;i<4;i++)m.push_back(i);
 
@@ -44,7 +42,8 @@ void mazeGen(int x,int y){
 }
 
 int main(){
-    freopen("t.out","w",stdout);
+    //freopen("t.out","w",stdout);
+    srand (time(NULL));
     int ix=1,iy=1;
     mazeGen(ix,iy);
     for(int i=0;i<MAZE_SIZE;i++){
