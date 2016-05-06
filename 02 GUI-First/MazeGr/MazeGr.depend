@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1457373657 source:c:\users\mahecha\desktop\maze\debussy - intf\mazegr\main.cpp
+	<bits/stdc++.h>
+	<allegro.h>
+
+1458770329 source:c:\users\mahecha\desktop\maze\02 gui-first\mazegr\main.cpp
+	<bits/stdc++.h>
+	<allegro.h>
+
