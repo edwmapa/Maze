@@ -46,6 +46,13 @@ int main(){
     srand (time(NULL));
     int ix=1,iy=1;
     mazeGen(ix,iy);
+    maze[ix][iy]='E';
+    int exit=rand()%MAZE_SIZE;
+    while(maze[20][exit]=='#'){
+        exit=rand()%MAZE_SIZE;
+    }
+    maze[20][exit]='S';
+
     for(int i=0;i<MAZE_SIZE;i++){
         cout<<maze[i]<<endl;
     }
