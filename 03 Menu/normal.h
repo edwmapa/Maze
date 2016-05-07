@@ -107,6 +107,18 @@ void loadMaze(int x,int y){
     visited.clear();
 }
 
+//SCORE TO WIN
+void win_Game(int current_score){
+    px=30,py=30;
+    steps_left=0;
+    maze.clear();
+    maze.assign(MAZE_SIZE,string(MAZE_SIZE,'#'));
+    visited.clear();
+    visited.assign(MAZE_SIZE,vector<bool>(MAZE_SIZE,0));
+
+    //CREATE DIALOG
+
+}
 
 
 //NORMAL GAME OPTION
@@ -135,48 +147,69 @@ void normalGame(){
             rest(500);
         }
         if(key[KEY_DOWN] || key[KEY_S]){  //MOVEMENT
-            if((ix+1>=0&&ix+1<MAZE_SIZE)&&(maze[ix+1][iy]=='.')){
-                store=maze[ix][iy];
-                maze[ix][iy]=maze[ix+1][iy];
-                maze[ix+1][iy]=store;
-                ix++;
-                px+=30;
-                if(score-1<0)score=0;
-                else score--;
-                rest(90);//delay ms
+            if((ix+1>=0&&ix+1<MAZE_SIZE)){
+                if(maze[ix+1][iy]=='.'){
+                    store=maze[ix][iy];
+                    maze[ix][iy]=maze[ix+1][iy];
+                    maze[ix+1][iy]=store;
+                    ix++;
+                    px+=30;
+                    if(score-1<0)score=0;
+                    else score--;
+                    rest(90);//delay ms
+                }else if(maze[ix+1][iy]=='S'){
+                    win_Game(score);
+                    break;
+                }
             }
         }else if(key[KEY_UP] || key[KEY_W]){
-            if((ix-1>=0&&ix-1<MAZE_SIZE)&&(maze[ix-1][iy]=='.')){
-                store=maze[ix][iy];
-                maze[ix][iy]=maze[ix-1][iy];
-                maze[ix-1][iy]=store;
-                ix--;
-                px-=30;
-                if(score-1<0)score=0;
-                else score--;
-                rest(90);//delay ms
+            if(ix-1>=0&&ix-1<MAZE_SIZE){
+                if (maze[ix-1][iy]=='.'){
+                    store=maze[ix][iy];
+                    maze[ix][iy]=maze[ix-1][iy];
+                    maze[ix-1][iy]=store;
+                    ix--;
+                    px-=30;
+                    if(score-1<0)score=0;
+                    else score--;
+                    rest(90);//delay ms
+                }else if(maze[ix-1][iy]=='S'){
+                    win_Game(score);
+                    break;
+                }
             }
         }else if(key[KEY_LEFT] || key[KEY_A]){
-            if((iy-1>=0&&iy-1<MAZE_SIZE)&&(maze[ix][iy-1]=='.')){
-                store=maze[ix][iy];
-                maze[ix][iy]=maze[ix][iy-1];
-                maze[ix][iy-1]=store;
-                iy--;
-                py-=30;
-                if(score-1<0)score=0;
-                else score--;
-                rest(90);//delay ms
+            if(iy-1>=0&&iy-1<MAZE_SIZE){
+                if(maze[ix][iy-1]=='.'){
+                    store=maze[ix][iy];
+                    maze[ix][iy]=maze[ix][iy-1];
+                    maze[ix][iy-1]=store;
+                    iy--;
+                    py-=30;
+                    if(score-1<0)score=0;
+                    else score--;
+                    rest(90);//delay ms
+                }else if(maze[ix][iy-1]=='S'){
+                    win_Game(score);
+                    break;
+                }
+
             }
         }else if(key[KEY_RIGHT] || key[KEY_D]){
-            if((iy+1>=0&&iy+1<MAZE_SIZE)&&(maze[ix][iy+1]=='.')){
-                store=maze[ix][iy];
-                maze[ix][iy]=maze[ix][iy+1];
-                maze[ix][iy+1]=store;
-                iy++;
-                py+=30;
-                if(score-1<0)score=0;
-                else score--;
-                rest(90);//delay ms
+            if(iy+1>=0&&iy+1<MAZE_SIZE){
+                if(maze[ix][iy+1]=='.'){
+                    store=maze[ix][iy];
+                    maze[ix][iy]=maze[ix][iy+1];
+                    maze[ix][iy+1]=store;
+                    iy++;
+                    py+=30;
+                    if(score-1<0)score=0;
+                    else score--;
+                    rest(90);//delay ms
+                }else if(maze[ix][iy+1]=='S'){
+                    win_Game(score);
+                    break;
+                }
             }
         }
 
@@ -192,7 +225,6 @@ void normalGame(){
                 maze.assign(MAZE_SIZE,string(MAZE_SIZE,'#'));
                 visited.clear();
                 visited.assign(MAZE_SIZE,vector<bool>(MAZE_SIZE,0));
-                void destroy_bitmap(BITMAP *buffer);
                 break;
             }
         }else if(mouse_x > 659 && mouse_x < 857 && mouse_y > 264 && mouse_y < 330){//HINT
@@ -214,7 +246,7 @@ void normalGame(){
         drw_maze(); //draw maze
         draw_sprite(buffer, player,py,px); //draw player
         masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13,22);
+        textprintf_ex(buffer, font, 660, 132, makecol(0, 0, 255),1, "%d", score);//show score
         blit(buffer,screen,0,0,0,0,860,660);//screen
-        textprintf_ex( screen, font, 660, 333, makecol(0, 0, 255),1, "%d", score);//show score
     }
 }
