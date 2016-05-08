@@ -14,6 +14,7 @@ BITMAP *cursor;
 
 //pos in Graph
 int px=30,py=30;
+string player_name;
 
 const int MAZE_SIZE = 22;
 const int dx[]= {0,0,1,-1};
@@ -107,8 +108,8 @@ void loadMaze(int x,int y){
     visited.clear();
 }
 
-//SCORE TO WIN
-void win_Game(int current_score){
+//WIN MESSAGE
+void win_Game_Normal(int current_score){
     px=30,py=30;
     steps_left=0;
     maze.clear();
@@ -116,27 +117,73 @@ void win_Game(int current_score){
     visited.clear();
     visited.assign(MAZE_SIZE,vector<bool>(MAZE_SIZE,0));
 
-    //CREATE DIALOG
+    //LAST MOVE
+    if(!current_score-1<0)current_score=0;
+    else current_score--;
 
+    //CREATE DIALOG
+    stringstream ss;
+    ss<<current_score;
+    string sco=ss.str();
+    const char* chr=sco.c_str();
+
+
+    map<int,string>file_score;
+    ifstream fin("Scores/normal_score.sc");
+    int min_score;
+    fin>>min_score;
+    if(current_score>min_score){
+        if(alert("Su puntaje actual es: ", chr, "¿Desea guardar el puntaje?","&Si", "&No", 's', 'n')==1){//YES OPTION
+            int sc;
+            string p;
+            while(fin>>sc>>p){
+                file_score[sc]=p;
+                min_score=min(min_score,sc);
+            }
+            file_score[current_score]=player_name;
+            ofstream fout("Scores/normal_score.sc");
+            fout<<min_score;
+            int it=0;
+            for(auto x:file_score){
+                fout<<x.first<<" "<<x.second<<endl;
+                it++;
+                if(it==10)break;
+            }
+            fout.close();
+        }else alert("Su puntaje no fue almacenado","Presione Ok para continuar "," ","&Ok",NULL,'o',0);
+    }else{
+        alert("HA GANADO!","Presione Ok para continuar"," ","&Ok",NULL,'o',0);
+    }
+    fin.close();
+    return;
 }
 
 
 //NORMAL GAME OPTION
 void normalGame(){
+    //GET PLAYER NAME
+    while(!player_name.empty()){
+        getline(cin,player_name);
+        if (!(player_name.size() == 3)){
+            player_name.erase(player_name.begin()+3,player_name.end());
+            cout<<"Truncado a: "<< player_name<<endl;
+        }
+    }
+    //MAZE GG
     int ix=1,iy=1;//Begining of maze
     int score;
     loadMaze(ix,iy);//createMaze
     score=init_Score(ix,iy);//Initial score
     //Load bitmaps
     buffer=create_bitmap(860,660);
-    fondo1=load_bitmap("Ingame_1.bmp",NULL);
-    fondo2=load_bitmap("Ingame_2.bmp",NULL);
-    fondo3=load_bitmap("Ingame_3.bmp",NULL);
-    wall=load_bitmap("wall.bmp",NULL);
-    background=load_bitmap("background.bmp",NULL);
-    player=load_bitmap("player.bmp",NULL);
-    exit_game=load_bitmap("exit.bmp",NULL);
-    cursor=load_bitmap("cursor.bmp",NULL);
+    fondo1=load_bitmap("Img/Ingame_1.bmp",NULL);
+    fondo2=load_bitmap("Img/Ingame_2.bmp",NULL);
+    fondo3=load_bitmap("Img/Ingame_3.bmp",NULL);
+    wall=load_bitmap("Img/wall.bmp",NULL);
+    background=load_bitmap("Img/background.bmp",NULL);
+    player=load_bitmap("Img/player.bmp",NULL);
+    exit_game=load_bitmap("Img/exit.bmp",NULL);
+    cursor=load_bitmap("Img/cursor.bmp",NULL);
 
     char m,store;
     string hint;
@@ -158,7 +205,7 @@ void normalGame(){
                     else score--;
                     rest(90);//delay ms
                 }else if(maze[ix+1][iy]=='S'){
-                    win_Game(score);
+                    win_Game_Normal(score);
                     break;
                 }
             }
@@ -174,7 +221,7 @@ void normalGame(){
                     else score--;
                     rest(90);//delay ms
                 }else if(maze[ix-1][iy]=='S'){
-                    win_Game(score);
+                    win_Game_Normal(score);
                     break;
                 }
             }
@@ -190,7 +237,7 @@ void normalGame(){
                     else score--;
                     rest(90);//delay ms
                 }else if(maze[ix][iy-1]=='S'){
-                    win_Game(score);
+                    win_Game_Normal(score);
                     break;
                 }
 
@@ -207,7 +254,7 @@ void normalGame(){
                     else score--;
                     rest(90);//delay ms
                 }else if(maze[ix][iy+1]=='S'){
-                    win_Game(score);
+                    win_Game_Normal(score);
                     break;
                 }
             }

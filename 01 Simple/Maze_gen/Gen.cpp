@@ -21,10 +21,10 @@ void mazeGen(int x,int y){
     if(visited[x][y]==1)return;
     visited[x][y]=1;
     maze[x][y]='.';
-//    for(int i=0;i<MAZE_SIZE;i++){
-//        cout<<maze[i]<<endl;
-//    }
-    //Sleep(100);
+    for(int i=0;i<MAZE_SIZE;i++){
+        cout<<maze[i]<<endl;
+    }
+Sleep(100);
     vector<int>m;
     for(int i=0;i<4;i++)m.push_back(i);
 

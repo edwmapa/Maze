@@ -12,12 +12,12 @@ int main(){
 
     //bitmap menu
     BITMAP *buffer=create_bitmap(860, 660);
-    BITMAP *cursor=load_bitmap("cursor.bmp",NULL);
-    BITMAP *fondo=load_bitmap("Menu_1.bmp",NULL);
-    BITMAP *arcade=load_bitmap("Menu_2.bmp",NULL);
-    BITMAP *normal=load_bitmap("Menu_3.bmp",NULL);
-    BITMAP *scoreboard=load_bitmap("Menu_4.bmp",NULL);
-    BITMAP *salir=load_bitmap("Menu_5.bmp",NULL);
+    BITMAP *cursor=load_bitmap("Img/cursor.bmp",NULL);
+    BITMAP *fondo=load_bitmap("Img/Menu_1.bmp",NULL);
+    BITMAP *arcade=load_bitmap("Img/Menu_2.bmp",NULL);
+    BITMAP *normal=load_bitmap("Img/Menu_3.bmp",NULL);
+    BITMAP *scoreboard=load_bitmap("Img/Menu_4.bmp",NULL);
+    BITMAP *salir=load_bitmap("Img/Menu_5.bmp",NULL);
     //loop choose
     bool exit_Menu=false;
     while(!exit_Menu){
