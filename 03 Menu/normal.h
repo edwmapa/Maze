@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 #include<ctime>
 #include<allegro.h>
+#include"inputAlleg.h"
 using namespace std;
 
 BITMAP *buffer;
@@ -137,33 +138,38 @@ void win_game(int current_score, bool which_file){
         string sco=ss.str();
         const char *chr=sco.c_str();
         if(alert("Su puntaje actual es: ", chr, "¿Desea guardar el puntaje?","&Si", "&No", 's', 'n')==1){//YES OPTION
-            vector<int>sc(11,0);
-            vector<string>tm(11,"");
+            vector<int>sc(11,0);//scores
+            vector<string>name(11,"");//names
+            vector<string>tm(11,"");//time
             for(int i=0;i<10;i++){
-                fin>>sc[i]>>tm[i];
+                fin>>sc[i]>>name[i]>>tm[i];
                 min_score=min(min_score,sc[i]);
             }
             sc[10]=current_score;// have to sort score
+            name[10]=input_form();
             tm[10]=current_time();// keep tracking on date
 
             //sort, keep data asociated with time - Insertion Sort
             for(int i=1;i<11;i++){
                 int x=sc[i];
                 string keep=tm[i];
+                string keep2=name[i];
                 int j=i-1;
                 while(j>=0 && sc[j]>x){
                     sc[j+1]=sc[j];
                     tm[j+1]=tm[j];
+                    name[j+1]=name[j];
                     j=j-1;
                 }
                 sc[j+1]=x;
                 tm[j+1]=keep;
+                name[j+1]=keep2;
             }
 
             ofstream fout("Scores/normal_score.sc");
             fout<<min_score<<endl;
-            for(int i=10;i>=0;i--){
-                fout<<sc[i]<<" "<<tm[i]<<endl;
+            for(int i=10;i>=1;i--){
+                fout<<sc[i]<<" "<<name[i]<<" "<<tm[i]<<endl;
             }
             fout.close();
         }else alert("Su puntaje no fue almacenado","Presione Ok para continuar "," ","&Ok",NULL,'o',0);
