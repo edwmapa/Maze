@@ -7,18 +7,21 @@ int main(){
     allegro_init();
     install_keyboard();
     install_mouse();
+    enable_hardware_cursor();
+    select_mouse_cursor(MOUSE_CURSOR_ARROW);
     set_color_depth(32);
     set_gfx_mode(GFX_AUTODETECT_WINDOWED, 860, 660, 0, 0);
 
     //bitmap menu
     BITMAP *buffer=create_bitmap(860, 660);
-    BITMAP *cursor=load_bitmap("Img/cursor.bmp",NULL);
     BITMAP *fondo=load_bitmap("Img/Menu_1.bmp",NULL);
     BITMAP *arcade=load_bitmap("Img/Menu_2.bmp",NULL);
     BITMAP *normal=load_bitmap("Img/Menu_3.bmp",NULL);
     BITMAP *scoreboard=load_bitmap("Img/Menu_4.bmp",NULL);
     BITMAP *salir=load_bitmap("Img/Menu_5.bmp",NULL);
     //loop choose
+    show_mouse(screen);
+    blit(buffer, screen, 0, 0, 0, 0, 860, 660);
     bool exit_Menu=false;
     while(!exit_Menu){
         if ( mouse_x > 325 && mouse_x < 588 && mouse_y > 223 && mouse_y < 293){//arcade
@@ -37,9 +40,8 @@ int main(){
             blit(fondo, buffer, 0, 0, 0, 0, 860, 660);
         }
         //show screen
-        masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13,22);
+        show_mouse(screen);
         blit(buffer, screen, 0, 0, 0, 0, 860, 660);
-
     }
 
 }
