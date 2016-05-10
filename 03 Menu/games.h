@@ -155,6 +155,7 @@ void win_game(int current_score, bool which_file){
     int min_score;
     fin>>min_score;
     if(current_score>=min_score){
+        min_score=(which_file)?256:1001;
         stringstream ss;
         ss<<current_score;
         string sco=ss.str();
@@ -334,10 +335,10 @@ void normalGame(){
 }
 
 void arcadeGame(){
-    int level=1;
     loadBmp();//load bitmaps;
      //FONT BIGGER;
     FONT *fontScore =load_font("Fonts/showScore.pcx",NULL,NULL);
+    int level=1;
     int score=120;//here score works as a timer
     double begin_time=time(NULL);//Time start
     bool playing=true;
@@ -347,6 +348,7 @@ void arcadeGame(){
         loadMaze(ix,iy);//createMaze
         char m,store;
         string hint;//store hint
+        if(level)
         while(true){ //KIND OF TIRCKY IMPLEMENTATION, :D
             double now=time(NULL);//actual time
             if (score==0){
