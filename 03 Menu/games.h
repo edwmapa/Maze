@@ -1,6 +1,4 @@
 #include<bits/stdc++.h>
-#include<ctime>
-#include<allegro.h>
 #include"inputAlleg.h"
 using namespace std;
 
@@ -133,7 +131,7 @@ void wipe_maze(){
 
 
 //WIN MESSAGE
-string current_time(){
+string current_time(){//time stamp
     string year,mo,day;
     stringstream sa,sb,sc;
     time_t now = time(0);
@@ -151,10 +149,6 @@ void win_game(int current_score, bool which_file){
     string choosenFile;
     if(which_file)choosenFile="Scores/arcade_score.sc";//TRUE - 1 - arcade
     else choosenFile="Scores/normal_score.sc"; //FALSE - 0 - normal
-
-    //LAST MOVE
-    if(current_score-1<0)current_score=0;
-    else current_score--;
 
     //CREATE DIALOG
     ifstream fin(choosenFile);

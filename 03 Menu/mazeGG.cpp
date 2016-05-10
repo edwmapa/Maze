@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 #include "games.h"
+#include "scoreboard.h"
 using namespace std;
 
 int main(){
@@ -30,6 +31,7 @@ int main(){
             if ( mouse_b & 1 )normalGame();
             blit(normal, buffer, 0, 0, 0, 0, 860, 660);
         }else if(mouse_x > 249 && mouse_x < 606 && mouse_y > 443 && mouse_y < 497){//score
+            if ( mouse_b & 1 )show_scores();
             blit(scoreboard, buffer, 0, 0, 0, 0, 860, 660);
         }else if(mouse_x > 372 && mouse_x < 541 && mouse_y > 538 && mouse_y < 603){//exit
             blit(salir, buffer, 0, 0, 0, 0, 860, 660);
