@@ -6,5 +6,5 @@ Maze Game
  - WIndows 7 or later (note, only works on windows systems).
 
 **Developed by:**
--Edwin Ricardo Mahecha Parra.
--Juan Pablo Giron.
+ - Edwin Ricardo Mahecha Parra.
+ - Juan Pablo Giron.
